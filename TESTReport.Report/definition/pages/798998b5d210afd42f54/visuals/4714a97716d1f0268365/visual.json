@@ -1,0 +1,43 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "4714a97716d1f0268365",
+  "position": {
+    "x": 709.992701453463,
+    "y": 168.58173285826018,
+    "width": 300,
+    "height": 300,
+    "z": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMZN"
+                        }
+                      },
+                      "Property": "Low"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(AMZN.Low)",
+              "nativeQueryRef": "Sum of Low"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

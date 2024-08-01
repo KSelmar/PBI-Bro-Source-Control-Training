@@ -1,0 +1,90 @@
+table AMZN
+	lineageTag: fdaa04f3-5c93-45ba-b1ce-d4fdf570ed35
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 94155a24-f622-4382-b519-86f01b2d53f5
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 17b5deaa-4915-43f0-85cb-d4c5cb22b729
+			defaultHierarchy: LocalDateTable_6ed11c86-81b3-4adc-a1bf-21328d9ef47b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Open
+		dataType: double
+		lineageTag: 291a70bd-a1e0-42b9-97aa-23e151460a0e
+		summarizeBy: sum
+		sourceColumn: Open
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column High
+		dataType: double
+		lineageTag: 44257a4d-bb10-4e51-833e-b201d41c9dd3
+		summarizeBy: sum
+		sourceColumn: High
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Low
+		dataType: double
+		lineageTag: 273a479c-b6eb-4c97-a10b-37bb925f6b2c
+		summarizeBy: sum
+		sourceColumn: Low
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Close
+		dataType: double
+		lineageTag: f1387e5e-6e6a-4cd2-b2d2-c13135f2c8b7
+		summarizeBy: sum
+		sourceColumn: Close
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Adj Close'
+		dataType: double
+		lineageTag: 2e0efdb1-a129-42c1-b3ef-bcfdff11b2d5
+		summarizeBy: sum
+		sourceColumn: Adj Close
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Volume
+		dataType: int64
+		formatString: 0
+		lineageTag: e4a1f9c1-3c25-482c-a0b4-f386359f7bb9
+		summarizeBy: sum
+		sourceColumn: Volume
+
+		annotation SummarizationSetBy = Automatic
+
+	partition AMZN = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\peder\Desktop\Kurser\Power BI Source Control\PBI-Bro-Source-Control-Training\AMZN.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Open", type number}, {"High", type number}, {"Low", type number}, {"Close", type number}, {"Adj Close", type number}, {"Volume", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
